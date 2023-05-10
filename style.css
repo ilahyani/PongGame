@@ -20,10 +20,12 @@ header {
 
 .ball {
     border-radius: 50%;
-    background-color: white;
+    background-color: blue;
     height: 25px;
     width: 25px;
     position: absolute;
+    /* top: 50%;
+    left: 50%; */
     top: 0;
     bottom: 0;
     left: 0;
@@ -36,7 +38,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 80%;
-    padding: 0px 20px;
+    padding: 0px 10px;
     border: 2px solid white;
 }
 
@@ -56,11 +58,11 @@ header {
 .separator {
     margin: 0px 30px;
     height: 100%;
-    border-right: 2px dashed white;
+    border-left: 2px dashed white;
 }
 
 .player {
-    width: 16px;
+    width: 10px;
     height: 200px;
     background-color: white;
     border-radius: 30px;
