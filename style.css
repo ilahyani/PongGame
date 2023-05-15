@@ -15,20 +15,21 @@ header {
     align-items: center;
     padding: 15px 0px;
     font-size: 35px;
-    border-bottom: 1px solid darkgray;
+    /* border-bottom: 2px solid darkgray; */
 }
 
 .main {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
     position: relative;
     height: 80%;
-    padding: 0px 10px;
-    border: 2px solid white;
+    padding-bottom: 10px;
+    border: 1px solid rgb(96, 96, 96);
 }
 
-.ball {
+.main  .ball {
     position: absolute;
     border-radius: 50%;
     background-color: blue;
@@ -41,28 +42,19 @@ header {
     margin: auto;
 }
 
-.scoreBoard {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+.main .score {
+    position: absolute;
+    top: 0;
+    left: 0;
     font-family: 'Press Start 2P';
     font-size: 30px;
-    height: 100%;
+    padding-top: 2%;
+    padding-left: 2%;
 }
 
-.score {
-    padding-top: 20px;
-}
-
-.separator {
-    margin: 0px 30px;
-    height: 100%;
-    border-left: 2px dashed white;
-}
-
-.player {
-    width: 10px;
-    height: 200px;
+.main .player {
+    width: 300px;
+    height: 10px;
     background-color: white;
     border-radius: 30px;
 }

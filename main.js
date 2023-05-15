@@ -1,24 +1,26 @@
-const [firstPlayerScore, secondPlayerScore] = document.querySelectorAll(".score")
-const [player1, player2] = document.querySelectorAll(".player")
+const player = document.querySelector(".player")
+const score = document.querySelector(".score")
 const canvas = document.querySelector(".main")
 const ball = document.querySelector(".ball")
-let start, animationID, progress, done = false
+let start, animationID, progress
 
-console.log(document.body.clientWidth)
-let paddin = 52 + parseInt(window.getComputedStyle(canvas, null).getPropertyValue('padding-left')) + parseInt(player1.clientWidth) + 2
+console.log(document.body.clientHeight)
+console.log(ball)
+ball.style.backround = 'white'
+let paddin = document.body.clientHeight - canvas.clientHeight
 function move(timestamp) {
     if (!start)
-        start = timestamp
+    start = timestamp
     progress = timestamp - start
-    console.log(progress, timestamp, start)
-    if (progress >= document.body.clientWidth - paddin) {
-        progress = document.body.clientWidth - paddin
+    if (progress >= document.body.clientHeight - paddin) {
+        progress = document.body.clientHeight - paddin
         console.log("progress:", progress)
     }
-    ball.style.left = progress + "px"
-    if (parseInt(ball.style.left) === document.body.clientWidth - paddin) {
+    ball.style.bottom = progress + "px"
+    console.log(parseInt(progress))
+    if (parseInt(ball.style.bottom) === document.body.clientHeight - paddin) {
         cancelAnimationFrame(animationID)
-        console.log("animation done", parseInt(ball.style.left), document.body.clientWidth - paddin)
+        console.log("animation done", parseInt(ball.style.bottom), document.body.clientHeight - paddin, paddin)
         return
     }
     animationID = window.requestAnimationFrame(move)
