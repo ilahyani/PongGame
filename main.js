@@ -1,29 +1,28 @@
 const player = document.querySelector(".player")
 const score = document.querySelector(".score")
-const canvas = document.querySelector(".main")
+const main = document.querySelector(".main")
 const ball = document.querySelector(".ball")
-let start, animationID, progress
 
-console.log(document.body.clientHeight)
-console.log(ball)
-ball.style.backround = 'white'
-let paddin = document.body.clientHeight - canvas.clientHeight
-function move(timestamp) {
-    if (!start)
-    start = timestamp
-    progress = timestamp - start
-    if (progress >= document.body.clientHeight - paddin) {
-        progress = document.body.clientHeight - paddin
-        console.log("progress:", progress)
+document.addEventListener('keydown', function (event) {
+    if (event.key === "ArrowRight") {
+        console.log("right")
     }
-    ball.style.bottom = progress + "px"
-    console.log(parseInt(progress))
-    if (parseInt(ball.style.bottom) === document.body.clientHeight - paddin) {
-        cancelAnimationFrame(animationID)
-        console.log("animation done", parseInt(ball.style.bottom), document.body.clientHeight - paddin, paddin)
-        return
+    else if (event.key === "ArrowLeft") {
+        console.log("left")
     }
-    animationID = window.requestAnimationFrame(move)
+})
+
+let ballAnimationID, playerAnimationID
+
+let maxRight = main.clientWidth - player.clientWidth
+console.log(player)
+function movePlayer() {
+    playerAnimationID = window.requestAnimationFrame(movePlayer)
 }
+// window.requestAnimationFrame(movePlayer)
 
-window.requestAnimationFrame(move)
+console.log(ball)
+function moveBall() {
+    ballAnimationID = window.requestAnimationFrame(moveBall)
+}
+// window.requestAnimationFrame(moveBall)
