@@ -22,34 +22,3 @@ header {
     display: block;
     margin: 0 auto;
 }
-
-/* 
-.ball {
-    position: absolute;
-    border-radius: 50%;
-    background-color: blue;
-    height: 30px;
-    width: 30px;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-}
-
-.score {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-family: 'Press Start 2P';
-    font-size: 30px;
-    padding-top: 2%;
-    padding-left: 2%;
-}
-
-.player {
-    width: 300px;
-    height: 10px;
-    background-color: white;
-    border-radius: 30px;
-} */
