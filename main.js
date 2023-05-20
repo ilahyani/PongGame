@@ -13,10 +13,8 @@ const ball = {
     vx: 4
 }
 
-window.addEventListener("load", () => {
-    console.log("PAGE LOADED")
-    init()
-});
+
+window.addEventListener("load", init);
 document.addEventListener('keydown', function (event) {
     if (event.key === "ArrowRight") {
         ctx.clearRect(player.x, player.y - 10, PLAYER_WIDTH, PLAYER_HEIGHT)
@@ -31,6 +29,7 @@ document.addEventListener('keydown', function (event) {
 })
 window.requestAnimationFrame(moveBall)
 
+
 function init() {
     ctx.fillStyle = "white"
     ctx.rect(player.x, player.y - 10, PLAYER_WIDTH, PLAYER_HEIGHT)
@@ -42,7 +41,6 @@ function init() {
 let ballAnimationID, lastFrameTime = 0;
 function moveBall(currentTime) {
     const elapsedTime = currentTime - lastFrameTime;
-    console.log(elapsedTime)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillRect(player.x, player.y - 10, PLAYER_WIDTH, PLAYER_HEIGHT)
     if ((ball.y + BALL_RADIUS) >= player.y - 13 && ball.x >= player.x && ball.x <= player.x + PLAYER_WIDTH)
