@@ -29,6 +29,7 @@ document.addEventListener('keydown', function (event) {
         ctx.fillRect(player.x, player.y - 10, PLAYER_WIDTH, PLAYER_HEIGHT)
     }
 })
+window.requestAnimationFrame(moveBall)
 
 function init() {
     ctx.fillStyle = "white"
@@ -38,9 +39,10 @@ function init() {
     ctx.fill()
 }
 
-let ballAnimationID
-function moveBall() {
-    // ctx.clearRect(ball.x - BALL_RADIUS, ball.y - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2)
+let ballAnimationID, lastFrameTime = 0;
+function moveBall(currentTime) {
+    const elapsedTime = currentTime - lastFrameTime;
+    console.log(elapsedTime)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillRect(player.x, player.y - 10, PLAYER_WIDTH, PLAYER_HEIGHT)
     if ((ball.y + BALL_RADIUS) >= player.y - 13 && ball.x >= player.x && ball.x <= player.x + PLAYER_WIDTH)
@@ -50,16 +52,18 @@ function moveBall() {
     else if ((ball.y - BALL_RADIUS) + ball.vy < 0)
         ball.vy *= -1
     else if ((ball.y + BALL_RADIUS) + ball.vy > canvas.height) {
-        ball.vx = ball.vy = 4
-        ball.x = (canvas.width / 2 - BALL_RADIUS / 2) - ball.vx
-        ball.y = canvas.height / 2 - ball.vy
+        setTimeout(() => {
+            ball.vx = ball.vy = 4
+            ball.x = (canvas.width / 2 - BALL_RADIUS / 2) - ball.vx
+            ball.y = canvas.height / 2 - ball.vy
+        }, 80)
     }
     ball.x += ball.vx
-    ball.y += ball.vy
+    ball.y += ball.vy * (elapsedTime / 10)
     ctx.beginPath()
     ctx.arc(ball.x, ball.y, BALL_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
     ctx.closePath()
+    lastFrameTime = currentTime
     ballAnimationID = window.requestAnimationFrame(moveBall)
 }
-window.requestAnimationFrame(moveBall)
