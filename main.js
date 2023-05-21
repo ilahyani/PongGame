@@ -1,17 +1,17 @@
-const PLAYER_WIDTH = 250, PLAYER_HEIGHT = 16, BALL_RADIUS = 12
+const PLAYER_WIDTH = 250, PLAYER_HEIGHT = 16, BALL_RADIUS = 12, DEFAULT_BALL_VELOCITY = 5
 const scoreBoard = document.querySelector(".score")
 const canvas = document.querySelector(".playground")
 const ctx = canvas.getContext("2d")
 const player = {
     x: canvas.width / 2 - PLAYER_WIDTH / 2,
     y: canvas.height - PLAYER_HEIGHT - 10,
-    v: 8
+    v: 10
 }
 const ball = {
     x: canvas.width / 2 - BALL_RADIUS / 2,
     y: canvas.height - canvas.height / 1.2,
-    vy: 4,
-    vx: 4
+    vy: DEFAULT_BALL_VELOCITY,
+    vx: DEFAULT_BALL_VELOCITY
 }
 
 
@@ -28,7 +28,7 @@ document.addEventListener('keydown', function (event) {
         ctx.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)
     }
 })
-window.requestAnimationFrame(moveBall)
+// window.requestAnimationFrame(moveBall)
 
 
 function init() {
@@ -51,9 +51,11 @@ function moveBall(currentTime) {
         ball.vy *= -1
     else if ((ball.y + BALL_RADIUS) + ball.vy >= canvas.height) {
         setTimeout(() => {
-            ball.vx = ball.vy = 4
+            ball.vx = ball.vy = DEFAULT_BALL_VELOCITY
             ball.x = (canvas.width / 2 - BALL_RADIUS / 2) - ball.vx
             ball.y = canvas.height - canvas.height / 1.2 - ball.vy
+            player.x = canvas.width / 2 - PLAYER_WIDTH / 2,
+            player.y = canvas.height - PLAYER_HEIGHT - 10,
             topScore = Math.max(topScore, score)
             score = 0
             scoreBoard.innerHTML = score + " (" + topScore + ")"
@@ -62,7 +64,10 @@ function moveBall(currentTime) {
     else if (ball.y + BALL_RADIUS >= player.y && (ball.x + BALL_RADIUS >= player.x && ball.x - BALL_RADIUS <= player.x + PLAYER_WIDTH)) {
         if (ball.vy > 0)
             ball.vy *= -1
-        score++
+        if (++score % 5 == 0) {
+            ball.vx += (ball.vx > 0 ? 0.2 : -0.2)
+            ball.vy += (ball.vy > 0 ? 0.2 : -0.2)
+        }
         scoreBoard.innerHTML = score + " (" + topScore + ")"
     }
     ball.x += ball.vx
