@@ -28,7 +28,7 @@ document.addEventListener('keydown', function (event) {
         ctx.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)
     }
 })
-// window.requestAnimationFrame(moveBall)
+window.requestAnimationFrame(moveBall)
 
 
 function init() {
