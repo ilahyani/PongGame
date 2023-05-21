@@ -64,7 +64,7 @@ function moveBall(currentTime) {
     else if (ball.y + BALL_RADIUS >= player.y && (ball.x + BALL_RADIUS >= player.x && ball.x - BALL_RADIUS <= player.x + PLAYER_WIDTH)) {
         if (ball.vy > 0)
             ball.vy *= -1
-        if (++score % 5 == 0) {
+        if (++score % 3 == 0) {
             ball.vx += (ball.vx > 0 ? 0.2 : -0.2)
             ball.vy += (ball.vy > 0 ? 0.2 : -0.2)
         }
