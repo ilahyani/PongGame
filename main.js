@@ -5,11 +5,11 @@ const ctx = canvas.getContext("2d")
 const player = {
     x: canvas.width / 2 - PLAYER_WIDTH / 2,
     y: canvas.height - PLAYER_HEIGHT - 10,
-    v: 9
+    v: 8
 }
 const ball = {
     x: canvas.width / 2 - BALL_RADIUS / 2,
-    y: canvas.height / 2,
+    y: canvas.height - canvas.height / 1.2,
     vy: 4,
     vx: 4
 }
@@ -37,7 +37,7 @@ function init() {
     ctx.fill(player.player)
     ctx.arc(ball.x, ball.y, BALL_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
-    scoreBoard.innerHTML = score + "(" + topScore + ")"
+    scoreBoard.innerHTML = score + " (" + topScore + ")"
 }
 
 let ballAnimationID, lastFrameTime = 0, score = 0, topScore = 0;
@@ -45,28 +45,28 @@ function moveBall(currentTime) {
     const elapsedTime = currentTime - lastFrameTime;
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT)
-    if ((ball.y + BALL_RADIUS + 2) >= player.y && ball.x >= player.x && ball.x <= player.x + PLAYER_WIDTH) {
-        ball.vy *= -1
-        score++
-        scoreBoard.innerHTML = score + "(" + topScore + ")"
-    }
-    else if ((ball.x + BALL_RADIUS) + ball.vx > canvas.width || (ball.x - BALL_RADIUS) + ball.vx < 0)
+    if ((ball.x + BALL_RADIUS) + ball.vx >= canvas.width || (ball.x - BALL_RADIUS) + ball.vx <= 0)
         ball.vx *= -1
-    else if ((ball.y - BALL_RADIUS) + ball.vy < 0)
+    else if ((ball.y - BALL_RADIUS) + ball.vy <= 0)
         ball.vy *= -1
     else if ((ball.y + BALL_RADIUS) + ball.vy >= canvas.height) {
         setTimeout(() => {
             ball.vx = ball.vy = 4
             ball.x = (canvas.width / 2 - BALL_RADIUS / 2) - ball.vx
-            ball.y = canvas.height / 2 - ball.vy
+            ball.y = canvas.height - canvas.height / 1.2 - ball.vy
             topScore = Math.max(topScore, score)
             score = 0
-            scoreBoard.innerHTML = score + "(" + topScore + ")"
+            scoreBoard.innerHTML = score + " (" + topScore + ")"
         }, 80)
     }
+    else if (ball.y + BALL_RADIUS >= player.y && (ball.x + BALL_RADIUS >= player.x && ball.x - BALL_RADIUS <= player.x + PLAYER_WIDTH)) {
+        if (ball.vy > 0)
+            ball.vy *= -1
+        score++
+        scoreBoard.innerHTML = score + " (" + topScore + ")"
+    }
     ball.x += ball.vx
-    ball.y += ball.vy * (elapsedTime / 10)
-    console.log(player.x, ball.x, player.y, ball.y)
+    ball.y += ball.vy * (elapsedTime / 8)
     ctx.beginPath()
     ctx.arc(ball.x, ball.y, BALL_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
